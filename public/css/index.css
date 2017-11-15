@@ -1,0 +1,19 @@
+#header{
+    position: fixed;
+    top=0;
+    z-index: 1;
+    width: 100%;
+}
+#slideshow{
+    width: 100%;
+}
+.card{
+    padding-top: 5px;
+}
+.container-fluid bg-dark{
+    height: auto;
+}
+.card-deck{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

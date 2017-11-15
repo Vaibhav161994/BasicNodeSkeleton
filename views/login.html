@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Login Page</title>
+        <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/Footer-white.css">
+    <link rel="stylesheet" href="/public/css/Basic-Header.css">        
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/signup.css">
+    
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+<script>
+$(function() {
+$("#submit").click(function() {
+
+    var email = $("#email").val();
+
+    var password = $("#password").val();
+
+var dataString = '&email=' + email + '&password=' + password ;
+
+if( password=='' || email=='')
+{
+$('.success').fadeOut(200).hide();
+       $("#InvalidData").fadeTo(2000, 500).slideUp(500, function(){
+    $("#InvalidData").slideUp(300);
+});
+$('.error').fadeOut(200).show();
+}
+else
+{
+$.ajax({
+type: "POST",
+url: "/signin",
+data: dataString,
+statusCode: {
+      500: function (response) {
+        $("#fail_alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#fail_alert").slideUp(300);
+        });
+        $('.failed').fadeOut(200).show();
+        $('.success').fadeIn(200).hide(); 
+        $('.error').fadeOut(200).hide();
+       }
+   },
+success: function(){
+    $("#success_alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#success_alert").slideUp(300);
+        window.location.href = "/profile";
+});
+$('.success').fadeIn(200).show(); 
+$('.error').fadeOut(200).hide();
+$('.failed').fadeOut(200).hide();
+}
+});
+}
+return false;
+});
+});
+</script>
+</head>
+
+<body>
+      <!-- Navbar Starts here-->
+<div id="header">
+ <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+   <a class="navbar-brand" href="/">SchoolApp</a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+     </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact">Contact Us</a>
+        </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li> -->
+      </ul>
+      <!-- Log in and SignUp Buttons -->
+      <li class="nav-item" style="padding-right: 5px; display: block">
+        <a class="btn btn-outline-secondary" href="/login" role="button">SingIn</a>
+      </li> 
+      <li class="nav-item my-2 my-sm-0" style="padding-right: 5px; display: block">
+        <a class="btn btn btn-outline-info" href="/signup" role="button">SignUp</a>
+      </li> 
+      
+      <!-- Ends Here-->
+  </div>
+  </nav>
+</div>  
+      
+    <!--  NavBar End Here -->  
+    <div class="container" id="registration-form">
+        <div class="image"></div>
+        <div class="frm">
+            <h1>SignIn</h1>
+            <form method="post" id="my_form">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success btn-lg" id="submit">
+                </div>
+                <div class="alert alert-danger" role="alert" style="display: none; width:5px:" id="fail_alert">    
+                <span class="failed" style="display:none"> Invalid Login Credentials </span>
+                </div> 
+                <div class="alert alert-info" role="alert" style="display: none; width:5px:" id="InvalidData">    
+                <span class="error" style="display:none"> Please Enter Valid Data</span>
+                </div>    
+                <div class="alert alert-success" role="alert" style="display: none; width:5px:" id="success_alert">
+                <span class="success" style="display:none"> Login Successfully</span>    
+                </div> 
+            </form>
+        </div>
+    </div>
+         <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+</body>
+
+</html>
