@@ -25,7 +25,7 @@ app.use(session({
   secret: 'Math.random()',
   resave: true,
   saveUninitialized: false,
-  cookie:{maxAge:60000000},
+  cookie:{maxAge:6000000},
   store: new MongoStore({
     mongooseConnection: db
   })
